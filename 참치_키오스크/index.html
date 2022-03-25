@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상원참치</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="banner"></div>
+        <div class="nav">
+          <ul>
+            <li onclick="getBackgroundMenu(this)">전체 메뉴</li>
+            <li onclick="getBackgroundMenu(this)">오늘의 메뉴</li>
+            <li onclick="getBackgroundMenu(this)">베스트 메뉴</li>
+          </ul>
+        </div>
+      </div>
+      <div class="section">
+        <div class="menu-wrapper">
+          <div class="menu">
+            <img src="image/img_con01.jpg" />
+            <div class="menu-info">
+              <h6>참다랑어 뱃살</h6>
+              <p>숙성 : <span>8일 숙성</span></p>
+              <p>가격 : <span id="price1">22,000</span></p>
+              <a href="#" id="firstMenu">담기</a>
+            </div>
+          </div>
+          <div class="menu">
+            <img src="image/img_con02.jpg" />
+            <div class="menu-info">
+              <h6>참다랑어 뱃살</h6>
+              <p>숙성 : <span>2일 숙성</span></p>
+              <p>가격 : <span id="price2">10,000</span></p>
+              <a href="#" id="secondMenu">담기</a>
+            </div>
+          </div>
+          <div class="menu">
+            <img src="image/img_con03.jpg" />
+            <div class="menu-info">
+              <h6>참다랑어 등살</h6>
+              <p>숙성 : <span>3일 숙성</span></p>
+              <p>가격 : <span id="price3">12,000</span></p>
+              <a href="#" id="thirdMenu">담기</a>
+            </div>
+          </div>
+          <div class="menu">
+            <img src="image/img_con04.jpg" />
+            <div class="menu-info">
+              <h6>참다랑어 뱃살</h6>
+              <p>숙성 : <span>5일 숙성</span></p>
+              <p>가격 : <span id="price4">16,000</span></p>
+              <a href="#" id="fourthMenu">담기</a>
+            </div>
+          </div>
+          <div class="menu">
+            <img src="image/img_con06.jpg" />
+            <div class="menu-info">
+              <h6>참다랑어 스페셜 세트</h6>
+              <p>숙성 : <span>5일 숙성</span></p>
+              <p>가격 : <span id="price5">32,000</span></p>
+              <a href="#" style="color: red" id="fifthMenu">품절</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <div class="order">
+          <button onclick="orderClick()" type="button">결제하기</button>
+          <p>총 주문 금액 : <span id="totalOrder">0</span></p>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      //소스 구현
+      // $(function () {
+      //   alert(
+      //     '상원 참치에 오신것을 환영합니다. \n(주문금액은 10만원을 넘을 수 없습니다.)',
+      //   );
+      // });
+      // 1번 문제: 전체 메뉴, 오늘의 메뉴, 베스트 메뉴를 클릭하게 되면
+      // 클릭한 메뉴에 아래 css를 적용할 것
+      // background-color: #ffffff;
+      // color: #4e4e4e;
+      function getBackgroundMenu(val) {
+        $('.nav ul li').on('click', function () {
+          $(val).css('backgroundColor', '#ffffff').css('color', '#4e4e4e');
+          $('.nav ul li')
+            .not(val)
+            .css('backgroundColor', '#c24040')
+            .css('color', 'white');
+        });
+      }
+      //attr('onclick','').unbind('click')
+      // 2번 문제: 메뉴 담기를 클릭하면 총 주문 금액에 가격 표기할 것
+      // 단, 참다랑어 세트는 품절이기 때문에 총 주문 금액에 포함될 수 없다.
+      $('#firstMenu').click(function () {
+        if ($(this).text() == '품절') {
+          alert('해당 상품은 품절 되었습니다.');
+        } else {
+          var price1 = $('#price1').text().replace(',', '');
+          price1 = parseInt(price1);
+          var totalOrder = $('#totalOrder').text().replace(',', '');
+          totalOrder = parseInt(totalOrder);
+          $('#totalOrder').html((totalOrder += price1));
+          console.log(price1);
+        }
+      });
+
+      $('#secondMenu').click(function () {
+        if ($(this).text() == '품절') {
+          alert('해당 상품은 품절 되었습니다.');
+        } else {
+          var price2 = $('#price2').text().replace(',', '');
+          price2 = parseInt(price2);
+          var totalOrder = $('#totalOrder').text().replace(',', '');
+          totalOrder = parseInt(totalOrder);
+          $('#totalOrder').html((totalOrder += price2));
+          console.log(price2);
+        }
+      });
+
+      $('#thirdMenu').click(function () {
+        if ($(this).text() == '품절') {
+          alert('해당 상품은 품절 되었습니다.');
+        } else {
+          var price3 = $('#price3').text().replace(',', '');
+          price3 = parseInt(price3);
+          var totalOrder = $('#totalOrder').text().replace(',', '');
+          totalOrder = parseInt(totalOrder);
+          $('#totalOrder').html((totalOrder += price3));
+          console.log(price3);
+        }
+      });
+
+      $('#fourthMenu').click(function () {
+        if ($(this).text() == '품절') {
+          alert('해당 상품은 품절 되었습니다.');
+        } else {
+          var price4 = $('#price4').text().replace(',', '');
+          price4 = parseInt(price4);
+          var totalOrder = $('#totalOrder').text().replace(',', '');
+          totalOrder = parseInt(totalOrder);
+          $('#totalOrder').html((totalOrder += price4));
+          console.log(price4);
+        }
+      });
+
+      $('#fifthMenu').click(function () {
+        if ($(this).text() == '품절') {
+          alert('해당 상품은 품절 되었습니다.');
+        } else {
+          var price5 = $('#price5').text().replace(',', '');
+          price5 = parseInt(price5);
+          var totalOrder = $('#totalOrder').text().replace(',', '');
+          totalOrder = parseInt(totalOrder);
+          $('#totalOrder').html((totalOrder += price5));
+          console.log(price5);
+        }
+      });
+      $('a').click(function () {
+        if ($(totalOrder).text() > 100000) {
+          $('a').off('click');
+          alert('금액은 10만원을 넘길 수 없습니다.');
+          // return $('a').unbind(click);
+          location.reload();
+        }
+      });
+
+      // 3번 문제: 결제하기를 눌렀을 때 총 주문 금액이 0원 이면
+      // '메뉴를 선택하세요!'라는 alert창 띄우기
+      function orderClick() {
+        if ($(totalOrder).text() == '0') {
+          alert('메뉴를 선택하세요!');
+        } else if ($(totalOrder).text() >= 100000) {
+          alert('주문금액은 100000원을 넘길 수 없습니다.');
+        } else {
+          confirm('주문 금액은 ' + $(totalOrder).text() + '원');
+          console.log('주문한 참치는 ' + $('.menu-info h6').text());
+        }
+      }
+
+      // 4번 문제: 총 주문 금액은 10만원을 넘을 수 없다.
+
+      // 5번 문제: 참다랑어 세트를 클릭하면
+      // '죄송합니다. 참다랑어 세트는 품절입니다.'라는 alert창 띄우기
+
+      // function soldOutClick(){
+      //   if($('.menu-info>a').text() == '품절'){
+      //     alert('품절이다 자식아')
+      //     return false
+      //   }
+
+      // 6번 문제: 모든 조건을 만족하면
+      // '주문한 참치는 참다랑어 뱃살 8일 숙성 2개, 참다랑어 등살 3일 숙성1개 입니다.
+      // 주문하시겠습니까?' 라는 confirm창 띄우기
+    </script>
+  </body>
+</html>

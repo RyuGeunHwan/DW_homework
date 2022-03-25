@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>이달의 우수사원</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="section-input">
+        <div class="card-header">
+          <h6>우수사원 등록</h6>
+        </div>
+        <div class="input-wrapper">
+          <label for="rank">랭킹 : </label>
+          <input id="rank" type="number" />
+          <label for="name">이름 : </label>
+          <input id="name" type="text" maxlength="15" />
+          <label for="job">직책 : </label>
+          <input id="job" type="text" />
+          <label for="loc">부서 위치 : </label>
+          <input id="loc" type="text" />
+          <label for="hiredate">입사 날짜 : </label>
+          <input id="hiredate" type="text" />
+        </div>
+        <div class="btn-wrapper">
+          <button type="button" onclick="clickEmployeeRegistration()">
+            사원 등록
+          </button>
+        </div>
+      </div>
+      <div class="section-table">
+        <div class="card-header">
+          <h6>우수사원 목록</h6>
+        </div>
+        <div class="card-body">
+          <div class="table-wrapper">
+            <div class="row"></div>
+            <div class="row">
+              <div class="col">
+                <table>
+                  <thead>
+                    <tr role="row">
+                      <th>No</th>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Office</th>
+                      <th>Start date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>홍길동</td>
+                      <td>Senior Javascript Developer</td>
+                      <td>New York</td>
+                      <td>2015/11/28</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>이지은</td>
+                      <td>Software Engineer</td>
+                      <td>San Francisco</td>
+                      <td>2020/06/15</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>현상원</td>
+                      <td>Chief Executive Officer (CEO)</td>
+                      <td>San Francisco</td>
+                      <td>2022/01/01</td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>손흥민</td>
+                      <td>Junior Javascript Developer</td>
+                      <td>London</td>
+                      <td>2021/10/13</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="row"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // 소스 작성
+
+      function clickEmployeeRegistration() {
+        // 1번 문제
+        // 첫번째 방법
+        // var input = '';
+        // for (var i = 0; i < $('input').length; i++) {
+        //   input = $('input').eq(i).val();
+        // }
+        // if (input == '') {
+        //   alert('데이터를 입력해주세요!');
+        //   $(input).focus();
+        // } else {
+        //   alert('데이터 입력 됐다!!!!!!!');
+        // }
+
+        // 두번째 방법
+        // var rank = $('#rank').val();
+        // var name = $('#name').val();
+        // var job = $('#job').val();
+        // var loc = $('#loc').val();
+        // var hiredate = $('#hiredate').val();
+        // var array = new Array();
+        // array.push(rank);
+        // array.push(name);
+        // array.push(job);
+        // array.push(loc);
+        // array.push(hiredate);
+        // for (var i = 0; i < array.length; i++) {
+        //   if (array[i] == '') {
+        //     alert('데이터를 입력해주세요!');
+        //   } else {
+        //     alert('데이터 입력 됐다!!!!!!!');
+        //   }
+        // }
+
+        // 확정
+        // 세번째 방법
+        // var rank = $('#rank').val();
+        // var name = $('#name').val();
+        // var job = $('#job').val();
+        // var loc = $('#loc').val();
+        // var hiredate = $('#hiredate').val();
+        // if (rank == '') {
+        //   alert('데이터를 입력해주세요!');
+        //   $($('#rank')).focus();
+        //   return false;
+        // }
+        // if (name == '') {
+        //   alert('데이터를 입력해주세요!');
+        //   $($('#name')).focus();
+        //   return false;
+        // }
+        // if (job == '') {
+        //   alert('데이터를 입력해주세요!');
+        //   $($('#job')).focus();
+        //   return false;
+        // }
+        // if (loc == '') {
+        //   alert('데이터를 입력해주세요!');
+        //   $($('#loc')).focus();
+        //   return false;
+        // }
+        // if (hiredate == '') {
+        //   alert($('#hiredate').id + '데이터를 입력해주세요!');
+        //   $($('#hiredate')).focus();
+        //   return false;
+        // }
+
+        // 네번째 방법
+        var inputWrapperChildren = $('.input-wrapper').children();
+        // console.log(inputWrapperChildren);
+        for (var i = 0; i < inputWrapperChildren.length; i++) {
+          var id = inputWrapperChildren[i].id;
+          console.log(id);
+          // var value = $('#' + id).val();
+        }
+        //
+        //
+        // 2번 문제
+        let officeArrText = '';
+        let locValue = $('#loc').val();
+        var array = ['New York', 'San Francisco', 'London'];
+        for (var i = 0; i < array.length; i++) {
+          if (array[0] === locValue) {
+            console.log('	New York이 맞습니다.');
+            return false;
+          }
+          if (array[1] === locValue) {
+            console.log('San Francisco가 맞습니다.');
+            return false;
+          }
+          if (array[2] === locValue) {
+            console.log('	London이 맞습니다.');
+            return false;
+          } else {
+            console.log('Office가 아닙니다.');
+            return false;
+          }
+        }
+        /*
+      1번 문제: 사원등록 버튼을 클릭 했을 때 랭킹 부터 입사날짜까지 빈공간이 있으면
+      '데이터를 입력해주세요!' alret 띄우고, 빈공간을 입력한 input에 focus를 하시오.
+
+      2번 문제: Office는 	New York, San Francisco, London 중 한 곳입니다.
+
+      3번 문제: 이미 등록된 랭킹은 중복될 수 없습니다.
+
+      4번 문제: 1~3번 문제이어서 해당 데이터를 tbody안에 추가 하시오.
+      단, 마지막 행에 추가 하시오.
+
+      ***5번 문제: (해당 문제는 할 수 있는 사람만 도전 해보시오.)
+      ↓을 누르면 내림차순, ↑을 누르면 오름차순으로 tr을 정렬하시오.
+      */
+      }
+    </script>
+  </body>
+</html>
