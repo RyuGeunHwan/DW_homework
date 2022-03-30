@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-wrapper">
+        <h3>스똬벅스 회원가입</h3>
+        <input id="userName" type="" placeholder="회원이름을 입력해주세요..." />
+        <input
+          id="nickName"
+          type=""
+          placeholder="사용할 닉네임을 입력해주세요..."
+        />
+        <div class="email-box">
+          <input
+            id="email"
+            type="text"
+            placeholder="이메일을 입력해주세요..."
+          />
+          <span>@</span>
+          <select id="emailList">
+            <option selected value="none">직접입력</option>
+            <option value="naver">naver.com</option>
+            <option value="gmail">gmail.com</option>
+            <option value="hanmail">hanmail.net</option>
+            <option value="nate">nate.com</option>
+          </select>
+        </div>
+        <input
+          id="phoneNumber"
+          type="text"
+          placeholder="연락처를 입력해주세요...(번호만 입력하세요)"
+        />
+        <div class="question-box">
+          <span>회원가입에 동의하나요?</span>
+          <input id="agreement" type="checkbox" />
+        </div>
+        <div class="join-btn">
+          <button id="join" type="button">회원 가입</button>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $('#join').click(function () {
+        var jsonParam = {};
+        // 키값에 변수적용 됨. [ ] 사용시
+        // 변수의 값을 키값으로 적용시키고 싶으면 이 방법을 사용!
+        //
+        // jsonParam.phone = '010'
+        // var elementID = 'iphone'
+        // ***jsonParam[elementID] = '010'
+        //jsonParam[elementID] 이렇게 사용할 경우 elementID = 'phone' 이므로 키값은 elementID가 아닌 'phone'으로 들어간다.
+        // 결과값 -> jsonParam = {phone : '010', ***iphone : '010'}
+
+        // 키값에 변수적용 안됨.
+        // jsonParam.phone = '010'
+        // var elementID = 'phone'
+        // ***jsonParam.elementID = '010'
+        // json에 들어갈때 변수(elementID)에 'phone'이 있지만 [elementID]처럼 사용 하지 않으면
+        // 변수값으로 json의 키값이 들어가는 것이 아니라 elementID로 키값이 들어간다.
+        // 결과값 -> jsonParam = {phone : '010', ***elementID : '010'}
+
+        var formWrapper = $('.form-wrapper').children();
+        console.log(formWrapper);
+        for (var i = 1; i < formWrapper.length; i++) {
+          var elementID = formWrapper[i].id;
+          var elementValue = '';
+          // nodeName은 개발자도구에 consol.log(formWrapper); 한 후에 json을 열어보면 나옴.
+          if (formWrapper[i].nodeName === 'INPUT') {
+            elementValue = $('#' + elementID).val();
+
+            if (elementValue === '') {
+              alert('내용을 확인해주세요!');
+              $('#' + elementID).focus();
+              return false;
+            }
+          }
+          if (
+            // 또는(||)을 괄호로 묶어주는 이유는 묶어주지 않으면 그리고(&&)가 먼저 실행되기 때문에
+            // 실행 순서가 꼬임( ||을 먼저 실행하기 위해서는 비교할것들을 괄호로 묶어준다.)
+            (elementID === 'userName' || elementID === 'nickName') &&
+            elementValue.length >= 20
+          ) {
+            alert('20글자 제한');
+            return false;
+          }
+          if (
+            (elementID === 'userName' || elementID === 'nickName') &&
+            !doCheckName(elementValue)
+          ) {
+            alert('한글로 입력해주세요!');
+            return false;
+          }
+          if (elementID === 'phoneNumber') {
+            elementValue = elementValue.replaceAll('-', '');
+          }
+          jsonParam[elementID] = elementValue;
+        }
+        var email = $('#email').val().trim();
+        if (email === '') {
+          alert('내용을 확인해주세요!');
+          $('#email').focus();
+          return false;
+        }
+        var emailCompany = $('#emailList option:selected').val();
+        if (emailCompany === 'none') {
+          alert('이메일 주소를 선택해주세요!');
+          $('#emailList').focus();
+          return false;
+        }
+        jsonParam.email = email + '@' + emailCompany;
+        // console.log('hello word');
+        // 체크여부!
+        if ($('#agreement').is(':checked') == true) {
+          alert('계속진행하시겠습니까?');
+        } else {
+          $('#agreement').is(':checked');
+          alert('체크해주세요!');
+          return false;
+        }
+        dojoin(jsonParam);
+      });
+      // 받은 json을 서버로 보내는 함수
+      function dojoin(jsonParam) {
+        console.log(jsonParam); // json 출력
+      }
+      // 한글 정규식 체크
+      function doCheckName(elementValue) {
+        var regName = /^[가-힣]+$/;
+        var isName = regName.test(elementValue);
+        return isName;
+      }
+    </script>
+  </body>
+</html>

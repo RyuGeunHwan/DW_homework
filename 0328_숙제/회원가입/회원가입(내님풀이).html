@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-wrapper">
+        <h3>스똬벅스 회원가입</h3>
+        <input id="userName" type="" placeholder="회원이름을 입력해주세요..." />
+        <input
+          id="nickName"
+          type=""
+          placeholder="사용할 닉네임을 입력해주세요..."
+        />
+        <div class="email-box">
+          <input
+            id="email"
+            type="text"
+            placeholder="이메일을 입력해주세요..."
+          />
+          <span>@</span>
+          <select id="emailList">
+            <option value="none" selected>직접입력</option>
+            <option value="naver">naver.com</option>
+            <option value="gmail">gmail.com</option>
+            <option value="hanmail">hanmail.net</option>
+            <option value="nate">nate.com</option>
+          </select>
+        </div>
+        <input
+          id="phoneNumber"
+          type="text"
+          placeholder="연락처를 입력해주세요...(번호만 입력하세요)"
+        />
+        <div class="question-box">
+          <span>회원가입에 동의하나요?</span>
+          <input id="agreement" type="checkbox" />
+        </div>
+        <div class="join-btn">
+          <button type="button" onclick="clickSignUp()">회원 가입</button>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function clickSignUp() {
+        var input = $('.form-wrapper input');
+        // 문제 1. input의 value 빈칸 여부
+        for (var i = 0; i < $('.form-wrapper input').length; i++) {
+          if (input.eq(i).val() == '') {
+            input.eq(i).focus();
+            console.log('내용을 확인해주세요!');
+            return false;
+          }
+        }
+        // 이메일 선택 여부
+        if ($('#emailList option:selected').val() === 'none') {
+          alert('이메일을 선택 해주세요');
+          return false;
+        }
+        // 문제 2.
+        if (input.eq(3).val().match('-')) {
+          console.log('문제 2번 = ' + input.eq(3).val().replaceAll('-', ''));
+        }
+        // 문제 3.
+        if (input.eq(0).val().length <= 20 && input.eq(1).val().length <= 20) {
+          if (
+            !doCheckUserName(input.eq(0).val()) ||
+            !doCheckUserName(input.eq(1).val())
+          ) {
+            alert('회원이름과 닉네임을 한글로 입력해주세요!');
+            return false;
+          }
+        } else {
+          alert('이름 또는 닉네임을 20글자 이하로 입력해주세요.');
+          return false;
+        }
+        // 문제 1. checkbox 체크 여부
+        if ($('#agreement').prop('checked') == true) {
+          confirm('계속 진행하시겠습니까?');
+        } else {
+          alert('동의여부를 체크해주세요!');
+          $('#agreement').prop('checked', true);
+          return false;
+        }
+        submitData();
+      }
+      function doCheckUserName(name) {
+        var regName = /^[가-힣]+$/;
+        var isName = regName.test(name);
+        return isName;
+      }
+      // 문제4.
+      function submitData() {
+        let jsonData = {};
+        jsonData.userName = $('#userName').val();
+        jsonData.nickName = $('#nickName').val();
+        jsonData.email =
+          $('#email').val() + '@' + $('#emailList option:selected').text();
+        jsonData.phoneNumber = $('#phoneNumber').val().replaceAll('-', '');
+        console.log(jsonData);
+      }
+
+      /* 문제 1.
+        회원가입 버튼 눌렀을 때, 빈칸 혹은 체크하지 못한 부분이 있다면
+        '내용을 확인해주세요!'하는 alert을 보여주고 focus 하시오.
+
+        문제 2.
+        연락처에 '-'를 작성하면 회원가입 버튼을 눌렀을 때 제거하시오.
+        ex) 010-4097-0823 -> 01040970823
+
+        문제 3.
+        회원이름과 닉네임은 20글자 이하고 한글만 사용할 수 있습니다.
+
+        문제 4.
+        모든 조건을 만족하고 회원가입 버튼을 누르면
+        input데이터를 json으로 만들어 console.log에 출력하시오.
+      */
+    </script>
+  </body>
+</html>
